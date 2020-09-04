@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<ItemCategory> itemCategorys;
 
-
-    //private static final String URL = "https://smmizan.com/appWorld/EcomApp/product_list.php";
     private static final String URL = "https://smmizan.com/appWorld/json/nestedjson.txt";
 
 
@@ -65,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         itemSubCategories2.add(new ItemSubCategory("jama","2500","10"));
         itemSubCategories2.add(new ItemSubCategory("tops","400","5"));
-        itemSubCategories2.add(new ItemSubCategory("bra","450","12"));
-        itemSubCategories2.add(new ItemSubCategory("panty","300","6"));
+        itemSubCategories2.add(new ItemSubCategory("shari","450","12"));
+        itemSubCategories2.add(new ItemSubCategory("hijab","300","6"));
         itemSubCategories2.add(new ItemSubCategory("burka","1500","10"));
 
 
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         itemCategorys.add(new ItemCategory("Men",itemSubCategories));
         itemCategorys.add(new ItemCategory("Women",itemSubCategories2));
-        itemCategorys.add(new ItemCategory("Honymoon",itemSubCategories3));
+        itemCategorys.add(new ItemCategory("Home & Living",itemSubCategories3));
 
 
 //        adapter = new ParentAdapter(this,itemCategorys);
@@ -106,10 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                             //Log.e("mizan",jsonArray.toString());
-                            JSONArray jsonArray2 = jsonObject.getJSONArray("category_item");
+//                            JSONArray jsonArray2 = jsonObject.getJSONArray("category_item");
                             //Log.e("mizan2",jsonArray2.toString());
-
-
 
 
                             for(int i = 0; i < jsonArray.length(); i++){
@@ -118,9 +114,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                                for(int j = 0; j < jsonArray2.length(); j++){
+                                ItemCategory itemCategorys = new ItemCategory(
+                                        jsnObject.getString("category_name"),
+                                        itemSubCategoryArrayList
+                                );
 
-                                    JSONObject jsonObject1 = jsonArray2.getJSONObject(j);
+
+                                    JSONObject jsonObject1 = jsnObject.getJSONObject("category_item");
 
 
                                     ItemSubCategory itemSubCategory = new ItemSubCategory(
@@ -131,20 +131,31 @@ public class MainActivity extends AppCompatActivity {
 
                                     itemSubCategoryArrayList.add(itemSubCategory);
 
-                                }
-
-
-                                ItemCategory itemCategorys = new ItemCategory(
-                                        jsnObject.getString("category_name"),
-                                        itemSubCategoryArrayList
-                                );
-
                                 productsList.add(itemCategorys);
+
+
+//                                for(int j = 0; j < jsonArray2.length(); j++){
+//
+//                                    JSONObject jsonObject1 = jsonArray2.getJSONObject(j);
+//
+//
+//                                    ItemSubCategory itemSubCategory = new ItemSubCategory(
+//                                            jsonObject1.getString("name"),
+//                                            jsonObject1.getString("price"),
+//                                            jsonObject1.getString("code")
+//                                    );
+//
+//                                    itemSubCategoryArrayList.add(itemSubCategory);
+//
+//                                }
+
+
+
+
                             }
 
                             adapter = new ParentAdapter(getApplicationContext(),itemCategorys);
                             recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
 
                             //Log.e("mizan", jsonArray2.toString());
 
